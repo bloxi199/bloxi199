@@ -1,0 +1,739 @@
+------------------------important varibles------------------------------------------------------------
+rbxname = "ALS43AL35VJS9QOZPQOF"
+local prefix = "!"
+local LPlayer = game.Players.ALS43AL35VJS9QOZPQOF
+-- your name on my name (bloxi199)
+messageLL = "ALS43AL35VJS9QOZPQOF is my master."
+speed = 999 --how fast tweengoto is 
+render1 = false --if alts auto unrender when excuted
+resettime = 5.4 --how long it will take to teleport alts back to cordinates noclip command
+
+---------------------commands--------------------------------------------------------------------------
+--!jump
+--!sj
+--!dance1
+--!dance2
+--!dance3
+--!rdance
+--!lookat
+--!wlookat
+--!follow
+--!sfollow
+--!bang
+--!tp teleports alts to you
+--!msg says message
+--!sit sits alts
+--!unsit unsits alts
+--!rs resets alts
+--!fling excutes fling scripts on alts remeber to use account for lag
+--!leave makes alts leave 
+--!float floats alts
+--!unfloat unfloats alts
+--!say makes alts say message
+--!tweengoto makes alt tween to player
+--!noclip phase trugh walls
+--!unclip no noclip
+--!roast roast people with custum text 
+--!love Love and compliments
+--!infy infiniteyield
+--!fly 
+--!vxpe = vape v4
+--!dhcfarm = da hood cash auto farm
+--!kick Kicks Alts
+--rejoin
+---------------grapics commands-------------------------------------------------------------------------
+
+--gr1 reduces grapics on alts more cpu power and gpu
+--gr2 same as gr1 just much more 
+--fpscap - number fps cap 
+--unrender REALLY good for performance 
+--render renders 
+--checkmin checks if you have minimezed tabs
+
+--------------------------------------------------------------------------------------------------------
+RunService = game:GetService("RunService")
+function getRoot(char)
+	local rootPart = char:FindFirstChild('HumanoidRootPart') or char:FindFirstChild('Torso') or char:FindFirstChild('UpperTorso')
+	return rootPart
+end
+function getTorso(x)
+	x = x or Players.LocalPlayer.Character
+	return x:FindFirstChild("Torso") or x:FindFirstChild("UpperTorso") or x:FindFirstChild("LowerTorso") or x:FindFirstChild("HumanoidRootPart")
+end
+
+function GetPlayer(String)
+	local plr
+	local strl = String:lower()
+	for i, v in pairs(game:GetService("Players"):GetPlayers()) do
+		if v.Name:lower():sub(1, #String) == String:lower() then
+			plr = v
+		end 
+	end
+	if String == "me" then
+		plr = game.Players.LocalPlayer
+	end
+	if String == "" or String == " " then
+		plr = nil
+	end
+	return plr
+end
+
+LPlayer.Chatted:Connect(function(msg)
+	msg = msg:lower()
+	if string.sub(msg,1,3) == "/e " then
+		msg = string.sub(msg,4)
+	end
+	if string.sub(msg,1,1) == prefix then
+		local cmd
+		local space = string.find(msg," ")
+		if space then
+			cmd = string.sub(msg,2,space-1)
+		else
+			cmd = string.sub(msg,2)
+		end
+
+		--------------------------------commands scripts----------------------------------------------------------
+		
+		if cmd == "lookat" then
+			local var27 = string.sub(msg,space+1)
+			local target27 = GetPlayer(var27)
+			local tg27 = tostring(target27)
+			_G.lookingat = true
+
+			while wait() and _G.lookingat == true do
+				pcall(function()
+					a=game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position;
+					b=game:GetService("Players"):FindFirstChild(tg27).Character.HumanoidRootPart.Position;
+					game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.lookAt(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position,Vector3.new(b.X,a.Y,b.Z));
+				end);
+			end
+
+		end
+		if cmd == "unlookat" then
+			_G.lookingat = false
+		end
+		
+		if cmd == "wlookat" then
+			local var26 = string.sub(msg,space+1)
+			local target26 = GetPlayer(var26)
+			local tg26 = tostring(target26)
+			_G.wlookingat = true
+		
+			while wait() and _G.wlookingat == true  do
+				pcall(function()
+					a=game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position;
+					b=game:GetService("Players"):FindFirstChild(tg26).Character.HumanoidRootPart.Position;
+					game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.lookAt(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position,Vector3.new(b.X,a.Y,b.Z));
+					game:GetService("Players").LocalPlayer.Character.Animate.PlayEmote:Invoke("wave");
+				end);
+			end
+			
+		end
+		if cmd == "unwlookat" then
+			_G.wlookingat = false
+		end
+		if cmd == "sfollow" then
+			local var25 = string.sub(msg,space+1)
+			local target25 = GetPlayer(var25)
+			local tg25 = tostring(target25)
+			_G.sfollow = true
+			if(getgenv().bp~=nil)then getgenv().bp:Destroy();end;if(getgenv().bpc~=nil)then getgenv().bpc:Destroy();end;
+			getgenv().bp=Instance.new("BodyPosition");
+			getgenv().bp.MaxForce=Vector3.new(math.huge*math.huge,math.huge*math.huge,math.huge*math.huge);
+			getgenv().bp.P=getgenv().bp.P*2;
+			getgenv().bp.Position=game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position;
+			getgenv().bpc=getgenv().bp:Clone();
+
+			while wait() and _G.sfollow == true do
+				if(getgenv().bpc==nil)then getgenv().bpc=getgenv().bp:Clone();end;
+				getgenv().bpc.Parent=game:GetService("Players").LocalPlayer.Character.HumanoidRootPart;
+				if(game:GetService("Players").LocalPlayer.Character.Humanoid.Sit==false)then 
+					game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,false);
+					game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Ragdoll);
+				elseif(game:GetService("Players").LocalPlayer.Character.Humanoid.Sit==true)then 
+					game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,true);
+					game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.GettingUp);
+				end;
+				game:GetService("Workspace").CurrentCamera.CameraSubject=game:GetService("Players").LocalPlayer.Character.HumanoidRootPart;
+				for _,a in pairs(game:GetService("Players").LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks())do a:Stop(0);end;
+				b=game:GetService("Players")[tg25].Character.HumanoidRootPart.Position;
+				c=game:GetService("Players")[tg25].Character.HumanoidRootPart.Velocity;
+				game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.lookAt(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position,b);
+				getgenv().bpc.Position=b;
+				game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Velocity=Vector3.new(c.X,0,c.Z);
+			end
+			wait();
+			game:GetService("Players").LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,true);
+			game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.GettingUp);
+			game:GetService("Workspace").CurrentCamera.CameraSubject=game:GetService("Players").LocalPlayer.Character.Humanoid;
+			getgenv().bpc:Destroy();
+			getgenv().bp:Destroy();
+		end
+
+		if cmd == "unsfollow" then
+			_G.sfollow = false
+		end
+
+		if cmd == "bang" then
+			local var24 = string.sub(msg,space+1)
+			local target24 = GetPlayer(var24)
+			local tg24 = tostring(target24)
+			bangAnim = Instance.new("Animation")
+			if not game.Players.LocalPlayer.Character.Humanoid.RigType == "R15" then
+				bangAnim.AnimationId = "rbxassetid://148840371"
+			else
+				bangAnim.AnimationId = "rbxassetid://5918726674"
+			end
+			bang = game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(bangAnim)
+			bang:Play(.1, 1, 1)
+			local bangplr = tg24
+			bangDied = game.Players.LocalPlayer.Character:FindFirstChildOfClass'Humanoid'.Died:Connect(function()
+				bangLoop = bangLoop:Disconnect()
+				bang:Stop()
+				bangAnim:Destroy()
+				bangDied:Disconnect()
+			end)
+			Players = game:GetService("Players")
+			local bangOffet = CFrame.new(0, 0, 1.1)
+			bangLoop = RunService.Stepped:Connect(function()
+				pcall(function()
+					local otherRoot = getTorso(Players[tg24].Character)
+					getRoot(Players.LocalPlayer.Character).CFrame = otherRoot.CFrame * bangOffet
+				end)
+			end)
+		end
+		if cmd == "unbang" then
+			bangLoop = bangLoop:Disconnect()
+			bangDied:Disconnect()
+			bang:Stop()
+			bangAnim:Destroy()
+		end
+		if cmd == "unfollow" then
+			_G.Following = false
+		end		
+
+		if cmd == "follow" then
+			_G.Following = true
+			local var23 = string.sub(msg,space+1)
+			local target23 = GetPlayer(var23)
+			local p2 = tostring(target23)
+			while _G.Following == true do
+				game:GetService('RunService').RenderStepped:Wait()
+
+				local p1 = game.Players.LocalPlayer.Character
+				pcall(function()
+					p1.Humanoid:ChangeState(game.Players[p2].Character.Humanoid:GetState());
+					p1.Humanoid.Sit=game.Players[p2].Character.Humanoid.Sit;
+					p1.Humanoid.PlatformStand=game.Players[p2].Character.Humanoid.PlatformStand;
+					game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity=game.Players[p2].Character.HumanoidRootPart.Velocity
+
+					p1.HumanoidRootPart.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame
+				end)
+
+			end
+		end
+
+
+		if cmd == "tpto" then
+			local var22 = string.sub(msg,space+1)
+			local target22 = GetPlayer(var22)
+			local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
+			local p2 = tostring(target22)
+			local pos = p1.CFrame
+
+			p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame
+		end
+		if cmd == "tp" then
+			local args = {
+				[1] = "Im here master",
+				[2] = "All"
+			}
+
+			game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+			local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
+			local p2 = rbxname
+			local pos = p1.CFrame
+
+			p1.CFrame = game.Players[p2].Character.HumanoidRootPart.CFrame
+		end
+		if cmd == "jump" then
+			local humanoid = game.Players.LocalPlayer.Character.Humanoid
+			local jump = Enum.HumanoidStateType.Jumping
+			humanoid:ChangeState(jump)
+		end
+		if cmd == "sj" then
+			local args = {
+				[1] = "Spam jumping master.",
+				[2] = "All"
+			}
+
+			game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+			_G.SpamJump = true
+			local humanoid = game.Players.LocalPlayer.Character.Humanoid
+			local jump = Enum.HumanoidStateType.Jumping
+			while _G.SpamJump == true do
+				wait(0.3)
+				humanoid:ChangeState(jump)
+			end
+		end
+		if cmd == "unsj" then
+			local args = {
+				[1] = "Not spam jumping anymore master.",
+				[2] = "All"
+			}
+
+			game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+			_G.SpamJump = false
+		end
+		if cmd == "rdance" then
+			local args = {
+				[1] = "Im doing a random dance",
+				[2] = "All"
+			}
+
+			game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+			local random = math.random(1,3)
+			game.Players.LocalPlayer.Character.Animate.PlayEmote:Invoke("dance"..random)
+		end
+		if cmd == "dance1" then
+			local args = {
+				[1] = "Im doing /e dance1",
+				[2] = "All"
+			}
+
+			game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+			game.Players.LocalPlayer.Character.Animate.PlayEmote:Invoke("dance1")
+		end
+		if cmd == "dance2" then
+			local args = {
+				[1] = "Im doing /e dance2",
+				[2] = "All"
+			}
+
+			game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+			game.Players.LocalPlayer.Character.Animate.PlayEmote:Invoke("dance2")
+		end
+		if cmd == "dance3" then
+			local args = {
+				[1] = "Im doing /e dance3",
+				[2] = "All"
+			}
+
+			game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+
+			game.Players.LocalPlayer.Character.Animate.PlayEmote:Invoke("dance3")
+		end
+
+		if cmd == "msg" then
+			local args = {
+				[1] = messageLL,
+				[2] = "All"
+			}
+
+			game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+		end
+		if cmd == "infy" then
+			local args = {
+				[1] = "I got me infy gui master.",
+				[2] = "All"
+			}
+
+			game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+			loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+		end
+		if cmd == "fly" then
+			loadstring(game:HttpGet('https://raw.githubusercontent.com/xCatScript/Fly-sCRIPT/main/fly.txt'))()
+		end
+
+
+		if cmd == "dhcfarm" then
+			loadstring(game:HttpGet("https://pastebin.com/raw/hnYEDK8a"))()
+		end
+
+
+		if cmd == "kick" then
+			print("loading kick")
+			wait(1)
+			print ("kicking alts ...")
+			wait(1)
+			print ("kicking alts ...")
+			wait(1)
+			print ("kicking alts ...")
+			wait(1)
+			print ("kicking alts ...")
+			wait(3.5)
+
+
+			game.Players.LocalPlayer:Kick(".gg/sucq7cgD4F")
+
+		end
+		if cmd == "rejoin" then
+			local args = {
+				[1] = "Rejoining master.",
+				[2] = "All"
+			}
+
+			game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+			local TeleportService = game:GetService("TeleportService")
+			local Players = game:GetService("Players")
+			local LocalPlayer = Players.LocalPlayer
+
+			local Rejoin = coroutine.create(function()
+				local Success, ErrorMessage = pcall(function()
+					TeleportService:Teleport(game.PlaceId, LocalPlayer)
+				end)
+
+				if ErrorMessage and not Success then
+					warn(ErrorMessage)
+				end
+			end)
+
+			coroutine.resume(Rejoin)
+		end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		if cmd == "sit" then
+			local args = {
+				[1] = "Im sitting master.",
+				[2] = "All"
+			}
+
+			game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+			game.Players.LocalPlayer.Character.Humanoid.Sit = true
+		end
+		if cmd =="unsit" then
+			local args = {
+				[1] = "Im not sitting anymore master.",
+				[2] = "All"
+			}
+
+			game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+			game.Players.LocalPlayer.Character.Humanoid.Sit = false
+		end 
+		if cmd == "rs" then
+			local args = {
+				[1] = "Stabbing self master.",
+				[2] = "All"
+			}
+
+			game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+			game.Players.LocalPlayer.Character.Humanoid.Health = 0
+		end
+		if cmd == "fling" then
+			loadstring(game:HttpGet('https://files.shade4real.net/flinger.txt'))()
+		end
+		if cmd == "leave" then
+			game:Shutdown()
+		end
+		if cmd == "float" then
+			local args = {
+				[1] = "Floating master.",
+				[2] = "All"
+			}
+
+			game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+			for i, player in ipairs(game.Players:GetPlayers()) do -- use GetPlayers()
+				player.Character.HumanoidRootPart.CFrame = CFrame.new(player.Character.HumanoidRootPart.Position + Vector3.new(0, 10, 0))
+			end
+			wait(0.2)
+			game.Players.LocalPlayer.Character.Head.Anchored = true
+		end
+		if cmd == "unfloat" then
+			local args = {
+				[1] = "Not floating anymore master.",
+				[2] = "All"
+			}
+
+			game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+			for i, player in ipairs(game.Players:GetPlayers()) do -- use GetPlayers()
+				player.Character.HumanoidRootPart.CFrame = CFrame.new(player.Character.HumanoidRootPart.Position + Vector3.new(0, 10, 0))
+			end
+			wait(0.2)
+			game.Players.LocalPlayer.Character.Head.Anchored = false
+		end
+		if cmd == "say" then
+			if cmd == "say" then
+				local var = string.sub(msg,space+1)
+				game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(var, "All")
+			end
+		end
+		if cmd == "tweengoto" then
+			local args = {
+				[1] = "Tweening master.",
+				[2] = "All"
+			}
+
+			game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+			local var1 = string.sub(msg,space+1)
+			local target = GetPlayer(var1)
+			local cords = target.Character.HumanoidRootPart.Position
+
+			local New_CFrame = CFrame.new(cords)
+
+			local ts = game:GetService('TweenService')
+			local char = game.Players.LocalPlayer.Character
+
+			local part = char.HumanoidRootPart
+			local ti = TweenInfo.new(speed, Enum.EasingStyle.Linear)
+			local tp = {CFrame = New_CFrame}
+			ts:Create(part, ti, tp):Play()
+		end
+		if cmd== "noclip" then
+			local args = {
+				[1] = "Im noclipped master.",
+				[2] = "All"
+			}
+
+			game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+			local noclip = true char = game.Players.LocalPlayer.Character while true do if noclip == true then for _,v in pairs(char:children()) do pcall(function() if v.className == "Part" then v.CanCollide = false elseif v.ClassName == "Model" then v.Head.CanCollide = false end end) end end game:service("RunService").Stepped:wait() end
+		end
+		if cmd == "unclip" then
+			local args = {
+				[1] = "Im unnoclipped master.",
+				[2] = "All"
+			}
+
+			game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+			local cords2 = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+			game.Players.LocalPlayer.Character.Humanoid.Health = 0
+			wait(resettime)
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(cords2)
+		end
+		if cmd == "roast" then
+			local Roast = {"You bring everyone so much joy! You know, when you leave the room. But, still",
+				"If your brain was dynamite, there wouldn’t be enough to blow your hat off.",
+				"You are like a cloud. When you disappear, it’s a beautiful day.",
+				"I thought of you today. It reminded me to take out the trash.",
+				"Don’t be ashamed of who you are. That’s your parent’s job.",
+				"You’re my favorite person… besides every other person I’ve ever met.",
+				"You are proof that evolution can go in reverse.",
+				"If I throw a stick, will you leave?",
+				"Were you born this stupid or did you take lessons?",
+				"You are proof that god has a sense of humour.",
+				"if i had a face like yours, id sue my parents",
+				"If I had a dollar every time you shut up, I would give it back as a thank you.",
+				"Yes, I’m fully vaccinated, but I will still not hang out with you.",
+				"Earth is full. Go home.",
+				"A glowstick has a brighter future than you. Lasts longer in bed, too.",
+				"Taking a picture of you would put a virus on my phone",
+			}
+
+			local Result = Roast[math.random(1, #Roast)]
+			game:service('ReplicatedStorage').DefaultChatSystemChatEvents.SayMessageRequest:FireServer(Result,"All")
+		end
+		if cmd == "love" then
+			local love = {"You just light up the room.",
+				"You are more fun than anyone or anything I know, including bubble wrap.",
+				"Your inside is even more beautiful than your outside.",
+				"You inspire me.",
+				"You are the reason I am smiling today.",
+				"I bet you make small animals happy.",
+				"Colors seem brighter when you're around.",
+				"Your eyes are breathtaking.",
+				"On a scale from 1 to 10, you're an 11.",
+				"You are an incredible human.",
+				"Thank you for being you.",
+			}
+
+			local Result1 = love[math.random(1, #love)]
+			game:service('ReplicatedStorage').DefaultChatSystemChatEvents.SayMessageRequest:FireServer(Result1,"All")
+		end
+
+
+		-----------------------------grapics scripts-----------------------------------------------------------------------------------
+		if cmd == "gr1" then
+			local a = game
+
+			local b = a.Workspace
+
+			local c = a.Lighting
+
+			local d = b.Terrain
+
+			d.WaterWaveSize = 0
+
+			d.WaterWaveSpeed = 0
+
+			d.WaterReflectance = 0
+
+			d.WaterTransparency = 0
+
+			c.GlobalShadows = false
+
+			c.FogEnd = 9e9
+
+			c.Brightness = 0
+
+			settings().Rendering.QualityLevel = "Level01"
+
+			for e, f in pairs(a:GetDescendants()) do
+
+				if f:IsA("Part") or f:IsA("Union") or f:IsA("CornerWedgePart") or f:IsA("TrussPart") then
+
+					f.Material = "Plastic"
+
+					f.Reflectance = 0
+
+				elseif f:IsA("Decal") or f:IsA("Texture") then
+
+					f.Transparency = 0
+
+				elseif f:IsA("ParticleEmitter") or f:IsA("Trail") then
+
+					f.Lifetime = NumberRange.new(0)
+
+				elseif f:IsA("Explosion") then
+
+					f.BlastPressure = 0
+
+					f.BlastRadius = 0
+
+				elseif f:IsA("Fire") or f:IsA("SpotLight") or f:IsA("Smoke") or f:IsA("Sparkles") then
+
+					f.Enabled = false
+
+				elseif f:IsA("MeshPart") then
+
+					f.Material = "Plastic"
+
+					f.Reflectance = 0
+
+					f.TextureID = 10385902758728957
+
+				end
+
+			end
+
+			for e, g in pairs(c:GetChildren()) do
+
+				if
+
+					g:IsA("BlurEffect") or g:IsA("SunRaysEffect") or g:IsA("ColorCorrectionEffect") or g:IsA("BloomEffect") or
+
+					g:IsA("DepthOfFieldEffect")
+
+				then
+
+					g.Enabled = false
+
+				end
+
+			end
+
+			sethiddenproperty(game.Lighting, "Technology", "Compatibility")
+		end
+
+
+
+		if cmd == "gr2" then
+			for _,v in pairs(workspace:GetDescendants()) do
+				if v.ClassName == "Part"
+					or v.ClassName == "SpawnLocation"
+					or v.ClassName == "WedgePart"
+					or v.ClassName == "Terrain"
+					or v.ClassName == "MeshPart" then
+					v.BrickColor = BrickColor.new(155, 155, 155)
+					v.Material = "Plastic"
+				end
+			end
+
+			for _,v in pairs(workspace:GetDescendants()) do
+				if v.ClassName == "Decal"
+					or v.ClassName == "Texture" then
+					v:Destroy()
+				end
+			end
+		end
+
+		------------------------------------------------check minimezed -----------------------------------------------------------------
+
+		if cmd == "checkmin" then
+			local ScreenGuirtw = Instance.new("ScreenGui")
+			local Frame = Instance.new("Frame")
+			local TextLabel = Instance.new("TextLabel")
+
+			--Properties:
+
+			ScreenGuirtw.Name = "ScreenGuirtw"
+			ScreenGuirtw.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+			ScreenGuirtw.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+			Frame.Parent = ScreenGuirtw
+			Frame.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+			Frame.Position = UDim2.new(0.295296818, 0, 0.243119255, 0)
+			Frame.Size = UDim2.new(0, 531, 0, 335)
+
+			TextLabel.Parent = ScreenGuirtw
+			TextLabel.BackgroundColor3 = Color3.fromRGB(170, 0, 0)
+			TextLabel.Position = UDim2.new(0.356977642, 0, 0.370030582, 0)
+			TextLabel.Size = UDim2.new(0, 370, 0, 170)
+			TextLabel.Font = Enum.Font.SourceSans
+			TextLabel.Text = "NOT MINIMIZED"
+			TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+			TextLabel.TextSize = 60.000
+
+
+
+			wait (8)
+			game:GetService("Players").LocalPlayer.PlayerGui.ScreenGuirtw:Destroy()
+		end
+
+		----------------------------------------------fpscap-----------------------------------------------------------------------------
+
+		if cmd == "fpscap" then
+			local cap = string.sub(msg,space+1)
+			local fps = cap
+			local clock = tick()
+
+			while true do
+				while clock + 1/fps > tick() do end
+				wait()
+				clock = tick()
+			end
+		end
+
+		-------------------------------------render / unrender------------------------------------------------------------------------------
+
+		if cmd == "unrender" then
+			game:GetService("RunService"):Set3dRenderingEnabled(false)
+		end
+
+		if cmd == "render" then
+			game:GetService("RunService"):Set3dRenderingEnabled(true)
+		end
+
+		----------------------------------------------player thing--------------------------------------------------------------------------
+
+	end
+end)
+------------------------------------------------------automatic excutes--------------------------------------------------------------
+if render1 == true then
+	game:GetService("RunService"):Set3dRenderingEnabled(false)
+end
+
+-------------------------------------------------------------------------------------------------------------------------------------
